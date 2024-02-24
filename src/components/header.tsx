@@ -38,10 +38,10 @@ export function Header() {
               </button>
             </PopoverTrigger>
 
-            <PopoverContent className="bg-[#1A1A1A] border-0 w-auto px-0">
+            <PopoverContent className="bg-[#1A1A1A] border-0 w-auto px-0 py-0">
               <nav className="flex flex-col w-full">
-                <Link href="/categories/gamepass" className="text-white text-base border-b-[1px] border-white/10 px-4 py-2">Gamepass</Link>
-                <Link href="/categories/contas" className="text-white text-base px-4 py-2">Contas</Link>
+                <Link href="/categories/gamepass" className="text-white text-base border-b-[1px] border-white/10 px-8 py-4">Gamepass</Link>
+                <Link href="/categories/contas" className="text-white text-base px-8 py-4">Contas</Link>
               </nav>
             </PopoverContent>
           </Popover>
@@ -77,7 +77,6 @@ export function Header() {
           <Link href="/profile" className="bg-transparent flex justify-center items-center text-white border-[#2A2A2A] border-2 rounded-lg w-9 h-9">
             <User className="text-white" size={14} />
           </Link>
-
           <Cart />
         </div>
       </div>
