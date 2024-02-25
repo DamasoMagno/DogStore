@@ -1,10 +1,12 @@
 "use client"
 import Image from "next/image"
-import { CheckCheck, ChevronLeft, ChevronRight, ShoppingCart, Trash } from "lucide-react"
+import { ChevronLeft, ChevronRight, ShoppingCart, Trash } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger, } from "./ui/sheet"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 export function Cart() {
+  const router = useRouter()
   const [productCount, setProductcount] = useState(1)
 
   const incrementProductCount = () => {
@@ -17,6 +19,10 @@ export function Cart() {
     }
 
     setProductcount(product => product - 1)
+  }
+
+  const handleCheckoutCart = () => {
+    router.push("/checkout")
   }
 
   return (
@@ -100,7 +106,10 @@ export function Cart() {
           </div>
         </div>
 
-        <button className="bg-[#A61C1C] hover:bg-[#A61C1C]/80 transition-colors  rounded-lg text-white text-base  justify-center items-center h-12">
+        <button
+          className="bg-[#A61C1C] hover:bg-[#A61C1C]/80 transition-colors  rounded-lg text-white text-base  justify-center items-center h-12"
+          onClick={handleCheckoutCart}
+        >
           Finalizar compra
         </button>
       </SheetContent>

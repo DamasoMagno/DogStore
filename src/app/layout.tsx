@@ -30,9 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`
-        ${roboto.className} 
-        ${roboto_condensed.className}
-        bg-[#0B0B0B]`
+        ${roboto.className} bg-[#0B0B0B]`
       }>
         {children}
       </body>
