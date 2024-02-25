@@ -5,7 +5,7 @@ export function Product() {
   return (
     <Link
       href={`/product/Yama`}
-      className="flex flex-col gap-2 max-w-[180px]"
+      className="flex flex-col gap-2 max-w-[200px]"
     >
       <div className="bg-[#1A1A1A] rounded-md flex justify-center items-center min-h-[160px] h-full relative">
         <Image

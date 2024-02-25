@@ -22,23 +22,17 @@ export function Order() {
     >
       <AccordionItem value="item-1" className="border-0">
         <AccordionTrigger className="text-white hover:no-underline">
-          <div>
-            Numero do Pedido
+          <div className="flex flex-col gap-1 items-start">
+            <span>Numero do Pedido</span>
+            <strong className="text-[#A1A1A1]">#001</strong>
           </div>
-          <div>
-            Status
+          <div className="flex flex-col gap-1 items-start">
+            <span>Status</span>
+            <strong className="text-[#A61C1C]">Pago</strong>
           </div>
-          <div>
-            Data Pagamento
-          </div>
-          <div>
-            <Button
-              variant="ghost"
-              className="flex items-center gap-2 text-[#A61C1C] hover:bg-transparent hover:text-[#A61C1C]"
-            >
-              <Download size={14} />
-              Baixar contas
-            </Button>
+          <div className="flex flex-col items-start gap-1">
+            <span>Data Pagamento</span>
+            <strong className="text-[#A61C1C]">24/02/2024</strong>
           </div>
         </AccordionTrigger>
         <AccordionContent>
@@ -63,8 +57,15 @@ export function Order() {
                 </button>
               </div>
             </li>
-          </ul>
 
+            <Button
+              variant="ghost"
+              className="flex items-center gap-2 text-[#A61C1C] hover:bg-transparent hover:text-[#A61C1C] self-end"
+            >
+              <Download size={14} />
+              Baixar contas
+            </Button>
+          </ul>
           <footer className="text-white flex items-center justify-between py-4">
             <p>Total</p>
             <strong>R$ 1220,93</strong>

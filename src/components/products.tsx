@@ -12,14 +12,25 @@ import 'swiper/css/scrollbar'
 
 export function Products() {
   const breakpoints: SwiperOptions["breakpoints"] = {
-    1240: {
+    1200: {
       slidesPerView: 6,
+      spaceBetween: 16,
     },
-    728: {
+    1024: {
+      slidesPerView: 5,
+      spaceBetween: 16,
+    },
+    768: {
       slidesPerView: 4,
+      spaceBetween: 16,
     },
-    240: {
+    480: {
+      slidesPerView: 3,
+      spaceBetween: 16,
+    },
+    320: {
       slidesPerView: 2,
+      spaceBetween: 16,
     },
   }
 

@@ -16,7 +16,7 @@ const config = {
     },
     extend: {
       screens: {
-        mobile: "328px"
+        mobile: "520px"
       },
       colors: {
         border: "hsl(var(--border))",
