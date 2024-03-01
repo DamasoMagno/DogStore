@@ -7,12 +7,10 @@ interface GameProps {
 }
 
 export function Game({ game }: GameProps) {
-  console.log(game)
-
   return (
     <Link
       href={`/category/products/${game.slug}`}
-      className="flex flex-col overflow-hidden max-w-[200px]"
+      className="flex flex-col justify-between overflow-hidden max-w-[200px] min-h-[160px]"
     >
       <Image
         src={game.banner.url}

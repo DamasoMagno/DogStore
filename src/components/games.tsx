@@ -3,8 +3,6 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules'
 import { SwiperOptions } from "swiper/types"
 
-import { Product } from './product'
-
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
@@ -48,7 +46,7 @@ export function Games({ games }: GamesProps) {
       breakpoints={breakpoints}
     >
       {games.map(game => (
-        <SwiperSlide key={game.id}>
+        <SwiperSlide key={game.id} className='h-[160px]'>
           <Game game={game} />
         </SwiperSlide>
       ))}
