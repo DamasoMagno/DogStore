@@ -1,4 +1,6 @@
+"use client"
 import type { Metadata } from "next";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Roboto, Roboto_Condensed } from "next/font/google";
 import "./globals.css";
 
@@ -16,11 +18,13 @@ const roboto_condensed = Roboto_Condensed(
   }
 );
 
-export const metadata: Metadata = {
-  title: "Dog Store",
-  description: "Compre itens e contas de roblox conosco, a melhor loja com os melhores contatos.",
-  icons: ["logo.png"]
-};
+// export const metadata: Metadata = {
+//   title: "Dog Store",
+//   description: "Compre itens e contas de roblox conosco, a melhor loja com os melhores contatos.",
+//   icons: ["logo.png"]
+// };
+
+const queryClient = new QueryClient()
 
 export default function RootLayout({
   children,
@@ -28,12 +32,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`
+    <QueryClientProvider client={queryClient}>
+      <html lang="en">
+        <body className={`
         ${roboto.className} bg-[#0B0B0B]`
-      }>
-        {children}
-      </body>
-    </html>
+        }>
+          {children}
+        </body>
+      </html>
+    </QueryClientProvider>
   );
 }

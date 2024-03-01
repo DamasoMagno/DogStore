@@ -9,13 +9,15 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
-import { IProduct } from '@/interfaces'
 
-interface ProductProps {
-  products: IProduct[]
+import { IGame } from '@/interfaces'
+import { Game } from './game'
+
+interface GamesProps {
+  games: IGame[]
 }
 
-export function Products({ products }: ProductProps) {
+export function Games({ games }: GamesProps) {
   const breakpoints: SwiperOptions["breakpoints"] = {
     1200: {
       slidesPerView: 6,
@@ -45,9 +47,9 @@ export function Products({ products }: ProductProps) {
       modules={[Navigation, Pagination, Scrollbar, A11y]}
       breakpoints={breakpoints}
     >
-      {products.map(product => (
-        <SwiperSlide key={product.id}>
-          <Product product={product} />
+      {games.map(game => (
+        <SwiperSlide key={game.id}>
+          <Game game={game} />
         </SwiperSlide>
       ))}
     </Swiper>

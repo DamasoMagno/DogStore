@@ -4,7 +4,6 @@ import { useParams } from "next/navigation";
 
 import { Header } from "@/components/header";
 import { Button } from "@/components/ui/button";
-import { Products } from "@/components/products";
 
 export default function Product() {
   const params = useParams() as { slug: string }
@@ -14,7 +13,7 @@ export default function Product() {
       <Header />
 
       <main className="grid lg:grid-cols-2 gap-12 items-center my-4 max-w-7xl mx-auto px-4">
-        <section className="bg-[#1A1A1A] rounded-md  min-h-[70vh] flex items-center justify-center">
+        <section className="bg-[#1A1A1A] rounded-md  h-[50vh] md:min-h-[70vh] flex items-center justify-center">
           <Image
             src="/Yama.png"
             alt=""
@@ -50,7 +49,7 @@ export default function Product() {
 
       <div className="max-w-7xl px-4 py-8 mx-auto flex flex-col gap-4">
         <strong className="text-white text-lg">Recomendamos</strong>
-        <Products />
+        {/* <List /> */}
       </div>
     </>
   )

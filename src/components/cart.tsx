@@ -1,9 +1,10 @@
 "use client"
 import Image from "next/image"
-import { ChevronLeft, ChevronRight, ShoppingCart, Trash } from "lucide-react"
-import { Sheet, SheetContent, SheetTrigger, } from "./ui/sheet"
+import { ChevronLeft, ChevronRight, ShoppingCart, Trash, X } from "lucide-react"
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetClose } from "./ui/sheet"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { Button } from "./ui/button"
 
 export function Cart() {
   const router = useRouter()
@@ -33,8 +34,14 @@ export function Cart() {
         </button>
       </SheetTrigger>
 
-      <SheetContent className="bg-[#0B0B0B] border-0 flex flex-col justify-between h-full">
-        <div className="flex flex-col gap-4">
+      <SheetContent className="bg-[#0B0B0B] border-0 flex flex-col h-full px-4">
+        <SheetHeader>
+          <SheetClose>
+            <X color="white" />
+          </SheetClose>
+        </SheetHeader>
+
+        <div className="flex flex-col gap-4 h-full">
           <div className="flex items-center">
             <div className="bg-[#1A1A1A] p-4 rounded-md flex justify-center items-center w-20 h-20 mr-4 relative">
               <Image
@@ -54,14 +61,14 @@ export function Cart() {
               <div className="flex items-center gap-2 mt-2">
                 <button
                   onClick={decrementProductCount}
-                  className="bg-transparent flex justify-center items-center text-white border-[#2A2A2A] border-2 rounded-lg w-9 h-9"
+                  className="bg-transparent flex justify-center items-center text-white border-[#2A2A2A] border-2 rounded-lg w-8 h-8"
                 >
                   <ChevronLeft className="text-white" size={14} />
                 </button>
                 <span className="text-white text-sm">{productCount}</span>
                 <button
                   onClick={incrementProductCount}
-                  className="bg-transparent flex justify-center items-center text-white border-[#2A2A2A] border-2 rounded-lg w-9 h-9"
+                  className="bg-transparent flex justify-center items-center text-white border-[#2A2A2A] border-2 rounded-lg w-8 h-8"
                 >
                   <ChevronRight className="text-white" size={14} />
                 </button>
@@ -90,11 +97,11 @@ export function Cart() {
               <p className="text-white font-bold text-base">R$ 467,93 </p>
 
               <div className="flex items-center gap-2 mt-2">
-                <button className="bg-transparent flex justify-center items-center text-white border-[#2A2A2A] border-2 rounded-lg w-9 h-9">
+                <button className="bg-transparent flex justify-center items-center text-white border-[#2A2A2A] border-2 rounded-lg w-8 h-8">
                   <ChevronLeft className="text-white" size={14} />
                 </button>
                 <span className="text-white text-sm">1</span>
-                <button className="bg-transparent flex justify-center items-center text-white border-[#2A2A2A] border-2 rounded-lg w-9 h-9">
+                <button className="bg-transparent flex justify-center items-center text-white border-[#2A2A2A] border-2 rounded-lg w-8 h-8">
                   <ChevronRight className="text-white" size={14} />
                 </button>
               </div>
@@ -106,12 +113,12 @@ export function Cart() {
           </div>
         </div>
 
-        <button
+        <Button
           className="bg-[#A61C1C] hover:bg-[#A61C1C]/80 transition-colors  rounded-lg text-white text-base  justify-center items-center h-12"
           onClick={handleCheckoutCart}
         >
           Finalizar compra
-        </button>
+        </Button>
       </SheetContent>
     </Sheet>
   )

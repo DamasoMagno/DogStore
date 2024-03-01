@@ -5,9 +5,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import { Download, Eye, EyeOff } from "lucide-react"
+import { Download, Eye, EyeOff, Trash, File, ListFilter } from "lucide-react"
 import { useState } from "react"
 import { Button } from "./ui/button"
+import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select"
 
 
 export function Order() {
@@ -35,7 +36,23 @@ export function Order() {
             <strong className="text-[#A61C1C]">24/02/2024</strong>
           </div>
         </AccordionTrigger>
+
         <AccordionContent>
+          <div className="flex items-center justify-between border-t-[#2A2A2A] border-t-2">
+            <span className="text-white">Filtrar</span>
+
+            <Select>
+              <SelectTrigger className="flex items-center gap-2 my-2 text-white w-auto bg-transparent outline-none border-none focus-visible:border-none focus:ring-offset-0 focus:ring-0">
+                <ListFilter size={14} />
+                Todas as contas
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectItem value="Teste">Teste</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
           <ul className="text-white flex flex-col gap-2 border-y-[#2A2A2A] border-y-2 py-4">
             <li>
               <span className="text-[#A1A1A1] text-sm">Usuário</span>
@@ -57,6 +74,10 @@ export function Order() {
                 </button>
               </div>
             </li>
+          </ul>
+
+          <div className="flex items-center justify-between">
+            <span className="text-white">Baixar contas</span>
 
             <Button
               variant="ghost"
@@ -65,7 +86,20 @@ export function Order() {
               <Download size={14} />
               Baixar contas
             </Button>
-          </ul>
+          </div>
+
+          <div className="flex items-center justify-between border-t-[#2A2A2A] border-t-2">
+            <span className="text-white">Arquivar</span>
+
+            <Button
+              variant="ghost"
+              className="flex items-center gap-2 text-[#A61C1C] hover:bg-transparent hover:text-[#A61C1C] self-end"
+            >
+              <Trash size={14} />
+              Arquivar
+            </Button>
+          </div>
+
           <footer className="text-white flex items-center justify-between py-4">
             <p>Total</p>
             <strong>R$ 1220,93</strong>
