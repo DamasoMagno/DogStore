@@ -20,7 +20,7 @@ export function Product({ product }: ProductProps) {
             height={0}
             sizes="100vw"
             alt=""
-            className="w-full max-h-[100%] max-w-[70%] object-contain"
+            className="w-full object-contain max-h-[110px] rounded-md"
           />
         </div>
 

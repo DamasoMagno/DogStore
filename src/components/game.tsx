@@ -7,18 +7,20 @@ interface GameProps {
 }
 
 export function Game({ game }: GameProps) {
+  console.log(game)
+
   return (
     <Link
-      href="/category/products/blox-fruit"
+      href={`/category/products/${game.slug}`}
       className="flex flex-col overflow-hidden max-w-[200px]"
     >
       <Image
-        src="/category.png"
+        src={game.banner.url}
         alt=""
         width={0}
         height={0}
         sizes="100vw"
-        className="w-[100%] rounded-md"
+        className="w-full object-cover max-h-[110px] rounded-md"
       />
 
       <strong className="text-white text-lg font-bold w-full text-center py-2">{game.nome}</strong>

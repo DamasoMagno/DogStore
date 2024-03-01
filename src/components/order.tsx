@@ -26,7 +26,7 @@ export function Order() {
         <AccordionTrigger className="text-white hover:no-underline">
           <div className="flex flex-col gap-1 items-start">
             <span>Numero do Pedido</span>
-            <strong className="text-[#A1A1A1]">#001</strong>
+            <strong className="text-[#A1A1A1] text-base">#001</strong>
           </div>
           <div className="flex flex-col gap-1 items-start">
             <span>Status</span>
