@@ -9,6 +9,7 @@ const popularProductsQuery = gql`
       product(first: 16) {
         id
         name
+        slug
         image {
           url
         }

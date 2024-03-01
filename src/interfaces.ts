@@ -1,6 +1,7 @@
 export interface IProduct {
   id: string
   name: string
+  slug: string
   price: number
   image: {
     url: string

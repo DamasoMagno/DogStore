@@ -19,8 +19,6 @@ export default function Products() {
     }
   })
 
-  console.log(data?.products)
-
   return (
     <>
       <Header />

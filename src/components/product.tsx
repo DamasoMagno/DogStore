@@ -12,10 +12,10 @@ interface ProductProps {
 export function Product({ product }: ProductProps) {
   return (
     <div className="flex flex-col max-w-[200px]">
-      <Link href={`/product/Yama`} className="flex flex-col gap-2 max-w-[200px]">
+      <Link href={`/product/${product.slug}`} className="flex flex-col gap-2 max-w-[200px]">
         <div className="bg-[#1A1A1A] rounded-md flex justify-center items-center min-h-[160px] h-full relative">
           <Image
-            src="/Yama.png"
+            src={product.image.url}
             width={0}
             height={0}
             sizes="100vw"

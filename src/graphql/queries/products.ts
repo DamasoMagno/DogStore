@@ -8,6 +8,7 @@ const productsQuery = gql`
     ) {
       id
       name
+      slug
       price
       image {
         url
@@ -20,6 +21,7 @@ export interface IProducts {
   products: {
     id: string;
     name: string;
+    slug: string
     image: {
       url: string;
     }
