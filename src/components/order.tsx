@@ -5,8 +5,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import { Download, Eye, EyeOff, Trash, File, ListFilter } from "lucide-react"
+import { Download, Eye, EyeOff, Trash } from "lucide-react"
 import { useState } from "react"
+import { toast, Toaster } from "sonner"
 import { Button } from "./ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select"
 
@@ -38,22 +39,21 @@ export function Order() {
         </AccordionTrigger>
 
         <AccordionContent>
-          <div className="flex items-center justify-between border-t-[#2A2A2A] border-t-2">
+          <div className="flex items-center justify-between border-t-[#2A2A2A]/25 border-t-2">
             <span className="text-white">Filtrar</span>
 
             <Select>
               <SelectTrigger className="flex items-center gap-2 my-2 text-white w-auto bg-transparent outline-none border-none focus-visible:border-none focus:ring-offset-0 focus:ring-0">
-                <ListFilter size={14} />
                 Todas as contas
               </SelectTrigger>
 
               <SelectContent>
-                <SelectItem value="Teste">Teste</SelectItem>
+                <SelectItem value="GodHuman">GodHuman</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
-          <ul className="text-white flex flex-col gap-2 border-y-[#2A2A2A] border-y-2 py-4">
+          <ul className="text-white flex flex-col gap-2 border-y-[#2A2A2A]/25 border-y-2 py-4">
             <li>
               <span className="text-[#A1A1A1] text-sm">Usuário</span>
               <p>Godhuman V4</p>
@@ -76,36 +76,32 @@ export function Order() {
             </li>
           </ul>
 
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between py-1">
             <span className="text-white">Baixar contas</span>
-
-            <Button
-              variant="ghost"
-              className="flex items-center gap-2 text-[#A61C1C] hover:bg-transparent hover:text-[#A61C1C] self-end"
-            >
+            <Button variant="ghost" className="flex items-center gap-2 text-[#A61C1C] hover:bg-transparent hover:text-[#A61C1C] self-end" onClick={() => toast.success("Contas baixadas")}>
               <Download size={14} />
               Baixar contas
             </Button>
           </div>
 
-          <div className="flex items-center justify-between border-t-[#2A2A2A] border-t-2">
+          <div className="flex items-center justify-between border-t-[#2A2A2A]/25 border-t-2 py-1">
             <span className="text-white">Arquivar</span>
-
-            <Button
-              variant="ghost"
-              className="flex items-center gap-2 text-[#A61C1C] hover:bg-transparent hover:text-[#A61C1C] self-end"
-            >
+            <Button variant="ghost" className="flex items-center gap-2 text-[#A61C1C] hover:bg-transparent hover:text-[#A61C1C] self-end" onClick={() => toast.success("Contas arquivas")}>
               <Trash size={14} />
               Arquivar
             </Button>
           </div>
 
-          <footer className="text-white flex items-center justify-between py-4">
+          <footer className="text-white flex items-center justify-between py-4 border-t-[#2A2A2A]/25 border-t-2">
             <p>Total</p>
             <strong>R$ 1220,93</strong>
           </footer>
         </AccordionContent>
       </AccordionItem>
+
+      <Toaster
+        position="top-right"
+      />
     </Accordion>
   )
 }
