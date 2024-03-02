@@ -31,7 +31,13 @@ export default function Categories() {
       }</strong >
 
       <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-        {data?.jogos.map(jogo => <Game key={jogo.id} game={jogo} />)}
+        {data?.jogos.map(jogo => (
+          <Game
+            key={jogo.id}
+            game={jogo}
+            category={data.category.slug}
+          />
+        ))}
       </div>
     </div >
   );

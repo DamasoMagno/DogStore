@@ -7,6 +7,7 @@ const gamesQuery = gql`
     category(where: {slug: $slug}) {
       id
       name
+      slug
     }
     jogos(where: {category_some: {slug: $slug}}) {
       id

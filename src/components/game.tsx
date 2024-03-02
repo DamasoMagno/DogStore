@@ -4,12 +4,13 @@ import Link from "next/link"
 
 interface GameProps {
   game: IGame
+  category?: string
 }
 
-export function Game({ game }: GameProps) {
+export function Game({ game, category = "account" }: GameProps) {
   return (
     <Link
-      href={`/category/products/${game.slug}`}
+      href={`/category/${category}/products/${game.slug}`}
       className="flex flex-col justify-between overflow-hidden max-w-[200px] min-h-[160px]"
     >
       <Image

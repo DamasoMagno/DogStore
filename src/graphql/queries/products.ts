@@ -1,16 +1,26 @@
 import { gql } from 'graphql-request'
 import { client } from '@/lib/graphql'
-import { IProduct } from '@/interfaces'
+import { ICategory, IProduct } from '@/interfaces'
 
 const productsQuery = gql`
-  query Games {
+  query Products ($gameSlug: String!, $categorySlug: String!) {
+    category(where: {slug: $categorySlug}) {
+      id
+      name
+    }
     products(
-      where: {jogo: {slug: "blox-fruit"}, categories_some: {slug: "account"}}
+      where: {
+        jogo: {
+          slug: $gameSlug
+        }, 
+        categories_some: {
+          slug: $categorySlug
+        }}
     ) {
       id
       name
-      slug
       price
+      slug
       image {
         url
       }
@@ -19,8 +29,20 @@ const productsQuery = gql`
 `
 
 export interface IProducts {
+  category: ICategory;
   products: IProduct[]
 }
 
-export const products = async () =>
-  await client.request<IProducts>(productsQuery)
+interface IProductProps {
+  game: string;
+  category: string;
+}
+
+export const products = async ({
+  category,
+  game
+}: IProductProps) =>
+  await client.request<IProducts>(productsQuery, {
+    gameSlug: game,
+    categorySlug: category
+  })

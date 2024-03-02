@@ -3,6 +3,14 @@ export interface IProduct {
   name: string
   slug: string
   price: number
+  categories: {
+    id: string
+    name: string
+  }[]
+  jogo: {
+    id: string
+    slug: string
+  }
   image: {
     url: string
   }
@@ -21,6 +29,7 @@ export interface IGame {
 export interface ICategory {
   id: string;
   name: string;
+  slug: string;
 }
 
 export interface ICart {
