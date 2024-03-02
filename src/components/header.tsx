@@ -41,7 +41,7 @@ export function Header() {
             <PopoverContent className="bg-[#1A1A1A] border-0 w-auto px-0 py-0">
               <nav className="flex flex-col w-full">
                 <Link href="/categories/gamepass" className="text-white text-base border-b-[1px] border-white/10 px-8 py-4">Gamepass</Link>
-                <Link href="/categories/contas" className="text-white text-base px-8 py-4">Contas</Link>
+                <Link href="/categories/account" className="text-white text-base px-8 py-4">Contas</Link>
               </nav>
             </PopoverContent>
           </Popover>

@@ -1,6 +1,6 @@
 import { gql } from 'graphql-request'
 import { client } from '@/lib/graphql'
-import { IProduct } from '@/interfaces';
+import { IGame, IProduct } from '@/interfaces';
 
 const popularProductsQuery = gql`
   {
@@ -36,15 +36,7 @@ export interface IPopularProducts {
     name: string;
     product: IProduct[]
   }[],
-  jogos: {
-    id: string;
-    nome: string;
-    slug: string;
-    banner: {
-      id: string;
-      url: string;
-    }
-  }[]
+  jogos: IGame[]
 }
 
 export const popularProducts = async () =>

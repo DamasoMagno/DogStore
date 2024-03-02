@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Roboto, Roboto_Condensed } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/header";
 
 const roboto = Roboto(
   {
@@ -34,9 +35,8 @@ export default function RootLayout({
   return (
     <QueryClientProvider client={queryClient}>
       <html lang="en">
-        <body className={`
-        ${roboto.className} bg-[#0B0B0B]`
-        }>
+        <body className={`${roboto.className} bg-[#0B0B0B]`}>
+          <Header />
           {children}
         </body>
       </html>

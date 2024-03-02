@@ -18,6 +18,11 @@ export interface IGame {
   }
 }
 
+export interface ICategory {
+  id: string;
+  name: string;
+}
+
 export interface ICart {
   id: string
   title: string
