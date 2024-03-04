@@ -3,19 +3,15 @@ import { client } from '@/lib/graphql'
 import { ICategory, IProduct } from '@/interfaces'
 
 const productsQuery = gql`
-  query Products ($gameSlug: String!, $categorySlug: String!) {
+  query Products($gameSlug: String!, $categorySlug: String!, $order: ProductOrderByInput) {
     category(where: {slug: $categorySlug}) {
       id
       name
+      slug
     }
     products(
-      where: {
-        jogo: {
-          slug: $gameSlug
-        }, 
-        categories_some: {
-          slug: $categorySlug
-        }}
+      orderBy: $order
+      where: {jogo: {slug: $gameSlug}, categories_some: {slug: $categorySlug}}
     ) {
       id
       name
@@ -36,13 +32,17 @@ export interface IProducts {
 interface IProductProps {
   game: string;
   category: string;
+  order?: "price_ASC" | "price_DESC"
 }
 
 export const products = async ({
   category,
-  game
-}: IProductProps) =>
-  await client.request<IProducts>(productsQuery, {
+  game,
+  order
+}: IProductProps) => {
+  return await client.request<IProducts>(productsQuery, {
     gameSlug: game,
-    categorySlug: category
+    categorySlug: category,
+    order
   })
+}

@@ -104,8 +104,8 @@ export default function Product() {
         )}
       </main>
 
-      <footer>
-        <strong>Recomendamos</strong>
+      <footer className="max-w-7xl mx-auto px-4 mt-12 flex flex-col gap-4">
+        <strong className="text-white text-2xl">Recomendamos</strong>
 
         {loadingRecomendeds ? (
           <ProductSkeleton />
