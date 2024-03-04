@@ -1,6 +1,4 @@
 "use client"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
 import { ArrowDownWideNarrow } from "lucide-react"
 import { useQuery } from "@tanstack/react-query"
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
@@ -10,7 +8,6 @@ import { products } from "@/graphql/queries/products"
 import { Product } from "@/components/product"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ProductSkeleton } from "@/components/product-skeleton"
-import { ChangeEvent, useCallback } from "react"
 
 type Params = {
   category: string;
@@ -21,7 +18,6 @@ export default function Products() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
   const { category, slug } = useParams() as Params
 
   const priceSort = searchParams.get("price") as "price_ASC" | "price_DESC" | undefined;
@@ -42,9 +38,9 @@ export default function Products() {
     const current = new URLSearchParams(Array.from(searchParams.entries())); // -> has to use this form
 
     if (!event) {
-      current.delete("price");
-    } else {
       current.set("price", event);
+    } else {
+      current.delete("price");
     }
 
     const search = current.toString();
@@ -57,7 +53,7 @@ export default function Products() {
     <div className="flex flex-col gap-6 px-4 my-8 max-w-7xl mx-auto">
       <strong className="font-bold text-lg text-white uppercase h-6 bg-white/5 w-32 rounded-md" />
       <div className="w-[140px] bg-white/5 h-10 rounded-md" />
-      <div className="grid gap-4 grid-cols-2 mobile:grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+      <div className="grid gap-4 grid-cols-2 mt-12 mobile:grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {Array.from({ length: 3 }).map((_, index) => (
           <ProductSkeleton key={index} />
         ))}

@@ -1,15 +1,15 @@
 "use client"
 import Image from "next/image"
 import { useParams } from "next/navigation";
+import { useQuery } from "@tanstack/react-query"
 
-import { Button } from "@/components/ui/button";
-import { useQuery } from "@tanstack/react-query";
 import { product } from "@/graphql/queries/product";
 import { formatPrice } from "@/utils/format-price";
 import { recomendedProducts } from "@/graphql/queries/recomended-products";
-import { Games } from "@/components/games";
-import { Products } from "@/components/products";
-import { ProductSkeleton } from "@/components/product-skeleton";
+
+import { Button } from "@/components/ui/button"
+import { Products } from "@/components/products"
+import { ProductSkeleton } from "@/components/product-skeleton"
 
 type Params = {
   slug: string
@@ -21,24 +21,19 @@ export default function Product() {
   const { data, isLoading } = useQuery({
     queryKey: ["product", params.slug],
     queryFn: async () => {
-      const response = await product()
+      const response = await product({ slug: params.slug })
       return response
     }
   })
 
   const { data: recomended, isLoading: loadingRecomendeds } = useQuery({
-    queryKey: [
-      "recomended",
-      data?.product.categories, data?.product.jogo
-    ],
+    queryKey: ["recomended"],
     queryFn: async () => {
       const response = await recomendedProducts()
       return response
     },
     enabled: !isLoading
   })
-
-  console.log(recomended)
 
   return (
     <>

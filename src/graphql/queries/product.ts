@@ -3,8 +3,8 @@ import { client } from '@/lib/graphql'
 import { IProduct } from '@/interfaces'
 
 const productQuery = gql`
-  query Product {
-    product(where: {slug: "yama"}) {
+  query Product ($slug: String!){
+    product(where: {slug: $slug}) {
       id
       name
       price
@@ -20,8 +20,12 @@ export interface IProductInfo {
   product: IProduct
 }
 
-export const product = async () => {
-  const data = await client.request<IProductInfo>(productQuery)
+interface IProductQuery {
+  slug: string
+}
+
+export const product = async ({ slug }: IProductQuery) => {
+  const data = await client.request<IProductInfo>(productQuery, { slug })
   return data
 }
 
