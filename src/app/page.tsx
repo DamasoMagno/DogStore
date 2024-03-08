@@ -20,8 +20,8 @@ export default async function Home() {
         </section>
 
         <section className="flex flex-col gap-5">
-          <strong className="font-bold text-lg text-white uppercase">Gamepass</strong>
-          <Products products={accounts} />
+          <strong className="font-bold text-lg text-white uppercase">Contas</strong>
+          <Products products={accounts} category="account" />
         </section>
 
         <section>

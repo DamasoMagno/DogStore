@@ -87,7 +87,13 @@ export default function Products() {
           Array.from({ length: 3 }).map((_, index) => (
             <ProductSkeleton key={index} />
           ))
-          : gamepassInfo?.map(product => <Product key={product.id} product={product} />)}
+          : gamepassInfo?.map(product => (
+            <Product
+              key={product.id}
+              product={product}
+              category="gamepass"
+            />
+          ))}
       </div>
     </main>
   )

@@ -41,8 +41,6 @@ export default function Product() {
     enabled: category === "account"
   })
 
-  console.log(gamePassInfo)
-
   return (
     <>
       <Head>

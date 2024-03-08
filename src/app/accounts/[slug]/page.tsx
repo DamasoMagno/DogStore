@@ -114,7 +114,13 @@ export default function Products() {
           Array.from({ length: 3 }).map((_, index) => (
             <ProductSkeleton key={index} />
           ))
-          : accountsInfo?.map(account => <Product key={account.id} product={account} />)}
+          : accountsInfo?.map(account => (
+            <Product
+              key={account.id}
+              product={account}
+              category="account"
+            />
+          ))}
       </div>
     </main>
   )

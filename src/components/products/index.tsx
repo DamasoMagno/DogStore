@@ -21,9 +21,10 @@ interface ProductProps {
       url: string
     }
   }[]
+  category?: string
 }
 
-export function Products({ products }: ProductProps) {
+export function Products({ products, category = 'gamepass' }: ProductProps) {
   const breakpoints: SwiperOptions["breakpoints"] = {
     1200: {
       slidesPerView: 6,
@@ -55,7 +56,10 @@ export function Products({ products }: ProductProps) {
     >
       {products.map(product => (
         <SwiperSlide key={product.id}>
-          <Product product={product} />
+          <Product
+            product={product}
+            category={category}
+          />
         </SwiperSlide>
       ))}
     </Swiper>
