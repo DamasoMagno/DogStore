@@ -10,6 +10,7 @@ const accountsQuery = gql`
       id
       name
       price
+      slug
       image {
         url
       }
