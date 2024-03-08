@@ -3,12 +3,15 @@ import { client } from '@/lib/graphql'
 import { IProduct } from '@/interfaces'
 
 const productQuery = gql`
-  query Product ($slug: String!){
-    product(where: {slug: $slug}) {
+  query Product($slug: String!){
+    gamepass (where: {slug: $slug}) {
       id
       name
       price
       slug
+      description {
+        markdown
+      }
       image {
         url
       }
@@ -17,7 +20,18 @@ const productQuery = gql`
 `
 
 export interface IProductInfo {
-  product: IProduct
+  gamepass: {
+    id: string
+    slug: string
+    name: string
+    price: number
+    description: {
+      markdown: string
+    }
+    image: {
+      url: string
+    }
+  }
 }
 
 interface IProductQuery {

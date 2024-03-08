@@ -1,29 +1,33 @@
 import { gql } from 'graphql-request'
 import { client } from '@/lib/graphql'
-import { IGame, IProduct } from '@/interfaces';
 
-const popularProductsQuery = gql`
-  {
-    categories {
+const resumeQuery = gql`
+  query Resume {
+    gamepasses(first: 12) {
       id
+      slug
       name
-      product(first: 16) {
-        id
-        name
-        slug
-        image {
-          url
-        }
-        price
+      price
+      image {
+        url
       }
     }
 
-    jogos(first: 16) {
+    accounts(first: 12) {
       id
-      nome
       slug
+      name
+      price
+      image {
+        url
+      }
+    }
+
+    games(first: 12) {
+      id
+      slug
+      name
       banner {
-        id
         url
       }
     }
@@ -31,13 +35,33 @@ const popularProductsQuery = gql`
 `
 
 export interface IPopularProducts {
-  categories: {
-    id: string;
-    name: string;
-    product: IProduct[]
-  }[],
-  jogos: IGame[]
+  gamepasses: {
+    id: string
+    slug: string
+    name: string
+    price: number
+    image: {
+      url: string
+    }
+  }[]
+  accounts: {
+    id: string
+    slug: string
+    name: string
+    price: number
+    image: {
+      url: string
+    }
+  }[]
+  games: {
+    id: string
+    slug: string,
+    name: string,
+    banner: {
+      url: string
+    }
+  }[]
 }
 
-export const popularProducts = async () =>
-  await client.request<IPopularProducts>(popularProductsQuery)
+export const resumeProducts = async () =>
+  await client.request<IPopularProducts>(resumeQuery)

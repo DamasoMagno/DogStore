@@ -7,7 +7,8 @@ import { products } from "@/graphql/queries/products"
 
 import { Product } from "@/components/product"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ProductSkeleton } from "@/components/product-skeleton"
+import { ProductSkeleton } from "@/components/product/skeleton"
+import { game } from "@/graphql/queries/game"
 
 type Params = {
   category: string;
@@ -15,32 +16,42 @@ type Params = {
 }
 
 export default function Products() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const { category, slug } = useParams() as Params
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
 
-  const priceSort = searchParams.get("price") as "price_ASC" | "price_DESC" | undefined;
+  const { slug } = useParams() as Params
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["products", slug, category, priceSort],
+  const priceSort = searchParams.get("price") as "price_ASC" | "price_DESC";
+
+  const { data: gamepassInfo, isLoading: loadingGamepass } = useQuery({
+    queryKey: ["gamepass", slug, priceSort],
     queryFn: async () => {
       const response = await products({
-        game: slug,
-        category: category,
+        slug,
         order: priceSort
       });
-      return response
+
+      return response.gamepasses
+    }
+  })
+
+  const { data: gameInfo, isLoading: loadingGame } = useQuery({
+    queryKey: ["game", slug],
+    queryFn: async () => {
+      const response = await game({
+        slug,
+      });
+
+      return response.game
     }
   })
 
   const onSelect = (event: string) => {
     const current = new URLSearchParams(Array.from(searchParams.entries())); // -> has to use this form
 
-    if (!event) {
+    if (event) {
       current.set("price", event);
-    } else {
-      current.delete("price");
     }
 
     const search = current.toString();
@@ -49,25 +60,19 @@ export default function Products() {
     router.push(`${pathname}${query}`);
   };
 
-  return isLoading ? (
-    <div className="flex flex-col gap-6 px-4 my-8 max-w-7xl mx-auto">
-      <strong className="font-bold text-lg text-white uppercase h-6 bg-white/5 w-32 rounded-md" />
-      <div className="w-[140px] bg-white/5 h-10 rounded-md" />
-      <div className="grid gap-4 grid-cols-2 mt-12 mobile:grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-        {Array.from({ length: 3 }).map((_, index) => (
-          <ProductSkeleton key={index} />
-        ))}
-      </div>
-    </div>
-  ) : (
-    <div className="flex flex-col gap-6 px-4 my-8 max-w-7xl mx-auto">
-      <strong className="font-bold text-lg text-white uppercase">{data?.category.name}</strong>
+  return (
+    <main className="flex flex-col gap-6 px-4 my-8 max-w-7xl mx-auto">
+      {loadingGame ?
+        <strong className="font-bold text-lg text-white uppercase h-6 bg-white/5 w-32 rounded-md" />
+        :
+        <strong className="font-bold text-lg text-white uppercase">{gameInfo?.name}</strong>
+      }
 
       <div className="flex items-center gap-4 max-w-[200px]">
         <Select onValueChange={onSelect}>
           <SelectTrigger className="bg-[#18181B]/20 border-dashed border-[1px] border-[#3F3F46] text-[#71717A] w-auto flex items-center gap-4">
             <ArrowDownWideNarrow size={16} />
-            <SelectValue placeholder="Ordenar" className="text-red-500" />
+            <SelectValue placeholder="Ordernar" className="text-red-500" />
           </SelectTrigger>
 
           <SelectContent className="z-[99999px]">
@@ -78,10 +83,12 @@ export default function Products() {
       </div>
 
       <div className="grid gap-4 grid-cols-2 mt-8 mobile:grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-        {data?.products.map(product => <Product key={product.id} product={product} />)}
+        {loadingGamepass ?
+          Array.from({ length: 3 }).map((_, index) => (
+            <ProductSkeleton key={index} />
+          ))
+          : gamepassInfo?.map(product => <Product key={product.id} product={product} />)}
       </div>
-    </div>
+    </main>
   )
 }
-
-

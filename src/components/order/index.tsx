@@ -8,7 +8,7 @@ import {
 import { Download, Eye, EyeOff, Trash } from "lucide-react"
 import { useState } from "react"
 import { toast, Toaster } from "sonner"
-import { Button } from "./ui/button"
+import { Button } from "../ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select"
 
 

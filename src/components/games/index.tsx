@@ -9,10 +9,17 @@ import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 
 import { IGame } from '@/interfaces'
-import { Game } from './game'
+import { Game } from '../game'
 
 interface GamesProps {
-  games: IGame[]
+  games: {
+    id: string
+    slug: string,
+    name: string,
+    banner: {
+      url: string
+    }
+  }[]
 }
 
 export function Games({ games }: GamesProps) {

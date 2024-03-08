@@ -1,18 +1,26 @@
 "use client"
 import Image from "next/image"
 import Link from "next/link"
-import { Button } from "./ui/button"
+import { Button } from "../ui/button"
 import { ShoppingCart } from "lucide-react"
 import { IProduct } from "@/interfaces"
 
 interface ProductProps {
-  product: IProduct
+  product: {
+    id: string
+    slug: string
+    name: string
+    image: {
+      url: string
+    }
+    price: number
+  }
 }
 
 export function Product({ product }: ProductProps) {
   return (
     <div className="flex flex-col max-w-[200px]">
-      <Link href={`/product/${product.slug}`} className="flex flex-col gap-2 max-w-[200px]">
+      <Link href={`/product/gamepass/${product.slug}`} className="flex flex-col gap-2 max-w-[200px]">
         <div className="bg-[#1A1A1A] rounded-md flex justify-center items-center min-h-[160px] h-full relative">
           <Image
             src={product.image.url}

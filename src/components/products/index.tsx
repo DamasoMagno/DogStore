@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules'
 import { SwiperOptions } from "swiper/types"
 
-import { Product } from './product'
+import { Product } from '../product'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -12,7 +12,15 @@ import 'swiper/css/scrollbar'
 import { IProduct } from '@/interfaces'
 
 interface ProductProps {
-  products: IProduct[]
+  products: {
+    id: string
+    slug: string
+    name: string
+    price: number
+    image: {
+      url: string
+    }
+  }[]
 }
 
 export function Products({ products }: ProductProps) {

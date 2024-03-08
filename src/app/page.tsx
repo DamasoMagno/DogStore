@@ -1,28 +1,35 @@
 import { Games } from "@/components/games";
-import { Header } from "@/components/header"
 import { Products } from "@/components/products";
-import { popularProducts } from "@/graphql/queries/popular-products";
+
+import { resumeProducts } from "@/graphql/queries/popular-products";
+import Head from "next/head";
 
 export default async function Home() {
-  const { categories, jogos } = await popularProducts()
+  const { accounts, gamepasses, games } = await resumeProducts()
 
   return (
-    <div className="flex flex-col gap-8 px-4 my-8 max-w-7xl mx-auto">
-      {categories.map(category => (
-        <section
-          key={category.id}
-          className="flex flex-col gap-5"
-        >
-          <strong className="font-bold text-lg text-white uppercase">{category.name}</strong>
-          <Products products={category.product} />
-        </section>
-      ))}
+    <>
+      <Head>
+        <title>Dog Store</title>
+      </Head>
 
-      <section>
-        <strong className="font-bold text-lg text-white uppercase">Jogos recomendados</strong>
-        <Games games={jogos} />
-      </section>
-    </div>
+      <div className="flex flex-col gap-8 px-4 my-8 max-w-7xl mx-auto">
+        <section className="flex flex-col gap-5">
+          <strong className="font-bold text-lg text-white uppercase">Gamepass</strong>
+          <Products products={gamepasses} />
+        </section>
+
+        <section className="flex flex-col gap-5">
+          <strong className="font-bold text-lg text-white uppercase">Gamepass</strong>
+          <Products products={accounts} />
+        </section>
+
+        <section>
+          <strong className="font-bold text-lg text-white uppercase">Jogos recomendados</strong>
+          <Games games={games} />
+        </section>
+      </div>
+    </>
   );
 }
 

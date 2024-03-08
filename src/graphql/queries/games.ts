@@ -1,37 +1,38 @@
 import { gql } from 'graphql-request'
 import { client } from '@/lib/graphql'
-import { ICategory, IGame } from '@/interfaces';
 
 const gamesQuery = gql`
-  query Games($slug: String!) {
-    category(where: {slug: $slug}) {
+  {
+    games {
       id
+      slug
       name
-      slug
-    }
-    jogos(where: {category_some: {slug: $slug}}) {
-      id
-      slug
       banner {
         id
         url
       }
-      nome
     }
   }
 `
 
 export interface IGames {
-  category: ICategory;
-  jogos: IGame[]
+  games: {
+    id: string;
+    slug: string;
+    name: string;
+    banner: {
+      id: string;
+      url: string;
+    }
+  }[]
 }
 
 interface IGamesProps {
   slug: string;
 }
 
-export const games = async ({ slug }: IGamesProps) => {
-  const data = await client.request<IGames>(gamesQuery, { slug })
+export const games = async () => {
+  const data = await client.request<IGames>(gamesQuery)
   return data
 }
 
