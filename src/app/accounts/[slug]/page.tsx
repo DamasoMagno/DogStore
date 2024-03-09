@@ -1,5 +1,5 @@
 "use client"
-import { ArrowDownWideNarrow } from "lucide-react"
+import { ArrowDownUp } from "lucide-react"
 import { useQuery } from "@tanstack/react-query"
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
 
@@ -86,10 +86,10 @@ export default function Products() {
         <strong className="font-bold text-lg text-white uppercase">{gameInfo?.name}</strong>
       }
 
-      <div className="flex items-center gap-4 max-w-[200px]">
+      <div className="flex flex-row  gap-4 ">
         <Select onValueChange={(e) => sortAccounts(e, "price")}>
           <SelectTrigger className="bg-[#18181B]/20 border-dashed border-[1px] border-[#3F3F46] text-[#71717A] w-auto flex items-center gap-4">
-            <ArrowDownWideNarrow size={16} />
+            <ArrowDownUp size={16} />
             <SelectValue placeholder="Ordernar" className="text-red-500" />
           </SelectTrigger>
 
@@ -102,8 +102,8 @@ export default function Products() {
 
         <Select onValueChange={(e) => sortAccounts(e, "category")}>
           <SelectTrigger className="bg-[#18181B]/20 border-dashed border-[1px] border-[#3F3F46] text-[#71717A] w-auto flex items-center gap-4">
-            <ArrowDownWideNarrow size={16} />
-            <SelectValue placeholder="Ordernar" className="text-red-500" />
+            <ArrowDownUp size={16} />
+            <SelectValue placeholder="Selecionar conta" className="text-red-500" />
           </SelectTrigger>
 
           <SelectContent className="z-[99999px]">
