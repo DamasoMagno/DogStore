@@ -1,13 +1,17 @@
 "use client"
 import Image from "next/image"
-import { Menu, Search, User, X } from "lucide-react";
+import { Menu, Router, Search, User, X } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation"
+import { FormEvent, useState } from "react";
 
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
 import { Cart } from "../cart";
 
 export function Header() {
+  const route = useRouter()
+  const [input, setInput] = useState("")
+
   const [searchBarVisible, setSearchBarVisible] = useState<boolean>(false)
 
   const handleOpenSearchBar = () => {
@@ -48,23 +52,34 @@ export function Header() {
 
 
           <div className="bg-[#1A1A1A]/25 border-[2px] border-[#1A1A1A]/50 rounded-sm flex px-4 py-2 gap-2 relative">
-            <div className={`
+            <form
+              onSubmit={(e) => {
+                e.preventDefault()
+                route.push(`/products/${input}`)
+                setInput("")
+              }}
+              className={`
               ${searchBarVisible ? "fixed w-64 left-1/2 -translate-x-1/2 bg-[#1A1A1A]/100 border-[2px] border-[#181717] p-2 rounded-md gap-4" : "hidden"}
                 md:relative md:flex flex items-center bg-[#1A1A1A] w-full md:bg-transparent
             `}>
               <input
+                onChange={e => setInput(e.target.value)}
+                value={input}
                 placeholder="buscar"
                 className={`
                 ${searchBarVisible ? "block" : "hidden"}
                   md:flex bg-transparent text-white outline-none flex-1
               `}
               />
-              <button className="flex items-center justify-center md:hidden" onClick={handleOpenSearchBar}>
+              <button
+                type="button"
+                className="flex items-center justify-center md:hidden" onClick={handleOpenSearchBar}>
                 <X size={16} color="#FFF" />
               </button>
-            </div>
+            </form>
 
             <button
+              type="button"
               className="flex justify-center items-center text-white"
               onClick={handleOpenSearchBar}
             >
