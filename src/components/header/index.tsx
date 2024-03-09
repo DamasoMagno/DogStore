@@ -3,7 +3,7 @@ import Image from "next/image"
 import { Menu, Router, Search, User, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation"
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
 import { Cart } from "../cart";

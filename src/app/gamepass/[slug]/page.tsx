@@ -3,15 +3,14 @@ import { ArrowDownWideNarrow } from "lucide-react"
 import { useQuery } from "@tanstack/react-query"
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
 
+import { game } from "@/graphql/queries/game"
 import { products } from "@/graphql/queries/products"
 
 import { Product } from "@/components/product"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ProductSkeleton } from "@/components/product/skeleton"
-import { game } from "@/graphql/queries/game"
 
 type Params = {
-  category: string;
   slug: string;
 }
 
@@ -24,7 +23,7 @@ export default function Products() {
 
   const priceSort = searchParams.get("price") as "price_ASC" | "price_DESC";
 
-  const { data: gamepassInfo, isLoading: loadingGamepass } = useQuery({
+  const { data: gamepass, isLoading: loadingGamepass } = useQuery({
     queryKey: ["gamepass", slug, priceSort],
     queryFn: async () => {
       const response = await products({
@@ -47,35 +46,34 @@ export default function Products() {
     }
   })
 
-  const onSelect = (event: string) => {
-    const current = new URLSearchParams(Array.from(searchParams.entries())); // -> has to use this form
+  const sortProducts = (param: string) => {
+    const params = new URLSearchParams(Array.from(searchParams.entries())); // -> has to use this form
 
-    if (event) {
-      current.set("price", event);
+    if (param !== "all") {
+      params.set("price", param);
+    } else {
+      params.delete("price")
     }
 
-    const search = current.toString();
-    const query = search ? `?${search}` : "";
-
-    router.push(`${pathname}${query}`);
-  };
+    router.replace(`${pathname}?${params.toString()}`);
+  }
 
   return (
     <main className="flex flex-col gap-6 px-4 my-8 max-w-7xl mx-auto">
       {loadingGame ?
-        <strong className="font-bold text-lg text-white uppercase h-6 bg-white/5 w-32 rounded-md" />
-        :
-        <strong className="font-bold text-lg text-white uppercase">{gameInfo?.name}</strong>
+        (<strong className="font-bold text-lg text-white uppercase h-6 bg-white/5 w-32 rounded-md" />) :
+        (<strong className="font-bold text-lg text-white uppercase">{gameInfo?.name}</strong>)
       }
 
       <div className="flex items-center gap-4 max-w-[200px]">
-        <Select onValueChange={onSelect}>
+        <Select onValueChange={sortProducts}>
           <SelectTrigger className="bg-[#18181B]/20 border-dashed border-[1px] border-[#3F3F46] text-[#71717A] w-auto flex items-center gap-4">
             <ArrowDownWideNarrow size={16} />
             <SelectValue placeholder="Ordernar" className="text-red-500" />
           </SelectTrigger>
 
           <SelectContent className="z-[99999px]">
+            <SelectItem value="all">Não ordenar</SelectItem>
             <SelectItem value="price_ASC">Menor preço</SelectItem>
             <SelectItem value="price_DESC">Maior preço</SelectItem>
           </SelectContent>
@@ -86,8 +84,8 @@ export default function Products() {
         {loadingGamepass ?
           Array.from({ length: 3 }).map((_, index) => (
             <ProductSkeleton key={index} />
-          ))
-          : gamepassInfo?.map(product => (
+          )) :
+          gamepass?.map(product => (
             <Product
               key={product.id}
               product={product}

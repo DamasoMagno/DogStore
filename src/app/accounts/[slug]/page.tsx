@@ -11,7 +11,6 @@ import { game } from "@/graphql/queries/game"
 import { categories } from "@/graphql/queries/categories"
 
 type Params = {
-  category: string;
   slug: string;
 }
 
@@ -57,22 +56,27 @@ export default function Products() {
   })
 
 
-  const onSelect = (event: string, eventCategory: string) => {
-    const current = new URLSearchParams(Array.from(searchParams.entries())); // -> has to use this form
+  const sortAccounts = (param: string, eventCategory: string) => {
+    const params = new URLSearchParams(Array.from(searchParams.entries())); // -> has to use this form
 
-    if (event && eventCategory === "price") {
-      current.set("price", event);
+    if (eventCategory === "price") {
+      if (param !== "all") {
+        params.set("price", param);
+      } else {
+        params.delete("price")
+      }
     }
 
-    if (event && eventCategory === "category") {
-      current.set("category", event);
+    if (eventCategory === "category") {
+      if (param !== "all") {
+        params.set("category", param);
+      } else {
+        params.delete("category")
+      }
     }
 
-    const search = current.toString();
-    const query = search ? `?${search}` : "";
-
-    router.push(`${pathname}${query}`);
-  };
+    router.replace(`${pathname}?${params.toString()}`);
+  }
 
   return (
     <main className="flex flex-col gap-6 px-4 my-8 max-w-7xl mx-auto">
@@ -83,25 +87,27 @@ export default function Products() {
       }
 
       <div className="flex items-center gap-4 max-w-[200px]">
-        <Select onValueChange={(e) => onSelect(e, "price")}>
+        <Select onValueChange={(e) => sortAccounts(e, "price")}>
           <SelectTrigger className="bg-[#18181B]/20 border-dashed border-[1px] border-[#3F3F46] text-[#71717A] w-auto flex items-center gap-4">
             <ArrowDownWideNarrow size={16} />
             <SelectValue placeholder="Ordernar" className="text-red-500" />
           </SelectTrigger>
 
           <SelectContent className="z-[99999px]">
+            <SelectItem value="all">Não ordenar</SelectItem>
             <SelectItem value="price_ASC">Menor preço</SelectItem>
             <SelectItem value="price_DESC">Maior preço</SelectItem>
           </SelectContent>
         </Select>
 
-        <Select onValueChange={(e) => onSelect(e, "category")}>
+        <Select onValueChange={(e) => sortAccounts(e, "category")}>
           <SelectTrigger className="bg-[#18181B]/20 border-dashed border-[1px] border-[#3F3F46] text-[#71717A] w-auto flex items-center gap-4">
             <ArrowDownWideNarrow size={16} />
             <SelectValue placeholder="Ordernar" className="text-red-500" />
           </SelectTrigger>
 
           <SelectContent className="z-[99999px]">
+            <SelectItem value="all">Não ordenar</SelectItem>
             {categoriesAccount?.map(category => (
               <SelectItem value={category.slug} key={category.id}>{category.name}</SelectItem>
             ))}

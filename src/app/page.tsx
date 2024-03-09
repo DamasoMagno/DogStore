@@ -1,8 +1,9 @@
-import { Games } from "@/components/games";
-import { Products } from "@/components/products";
+import Head from "next/head"
 
-import { resumeProducts } from "@/graphql/queries/popular-products";
-import Head from "next/head";
+import { resumeProducts } from "@/graphql/queries/popular-products"
+
+import { Games } from "@/components/games"
+import { Products } from "@/components/products"
 
 export default async function Home() {
   const { accounts, gamepasses, games } = await resumeProducts()
@@ -24,7 +25,7 @@ export default async function Home() {
           <Products products={accounts} category="account" />
         </section>
 
-        <section>
+        <section className="flex flex-col gap-5">
           <strong className="font-bold text-lg text-white uppercase">Jogos recomendados</strong>
           <Games games={games} />
         </section>
