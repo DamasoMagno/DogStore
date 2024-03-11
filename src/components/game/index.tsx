@@ -15,11 +15,9 @@ interface GameProps {
 }
 
 export function Game({ game, category = "account" }: GameProps) {
-  const url = category === "account" ? `/accounts/${game.slug}` : `/gamepass/${game.slug}`
-
   return (
     <Link
-      href={url}
+      href={`/gamepass/${game.slug}`}
       className="flex flex-col justify-between overflow-hidden max-w-[200px] min-h-[160px]"
     >
       <Image
