@@ -10,6 +10,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 import { IProduct } from '@/interfaces'
+import { useEffect, useState } from 'react'
 
 interface ProductProps {
   products: {
@@ -21,10 +22,10 @@ interface ProductProps {
       url: string
     }
   }[]
-  category?: string
+  category: "gamepass" | "account"
 }
 
-export function Products({ products, category = 'gamepass' }: ProductProps) {
+export function Products({ products, category }: ProductProps) {
   const breakpoints: SwiperOptions["breakpoints"] = {
     1200: {
       slidesPerView: 6,

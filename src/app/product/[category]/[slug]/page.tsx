@@ -1,5 +1,6 @@
 "use client"
 import Image from "next/image"
+import { useCartsStorage } from "../../../../store/cartStore"
 import Markdown from 'react-markdown'
 import { useParams } from "next/navigation"
 import { useQuery } from "@tanstack/react-query"
@@ -14,6 +15,7 @@ import { ProductSkeleton } from "@/components/product/skeleton"
 import Head from "next/head";
 import { account } from "@/graphql/queries/account";
 import { game } from "@/graphql/queries/game"
+import { toast } from "sonner"
 
 type Params = {
   slug: string
@@ -21,6 +23,11 @@ type Params = {
 }
 
 export default function Product() {
+  const { addProduct, products } = useCartsStorage(state => ({
+    addProduct: state.addCart,
+    products: state.products
+  }))
+
   const { category, slug } = useParams() as Params
 
   const { data: gamePassInfo, isLoading: isloadingGamepass } = useQuery({
@@ -104,7 +111,20 @@ export default function Product() {
                     </div>
                   </div>
 
-                  <Button className="bg-[#A61C1C] uppercase rounded-sm flex items-center justify-center text-white mt-8 md:mt-0">
+                  <Button
+                    onClick={() => {
+                      addProduct({
+                        id: gamePassInfo?.id ?? "",
+                        name: gamePassInfo?.name ?? "",
+                        price: gamePassInfo?.price ?? 0,
+                        photo: gamePassInfo?.image.url ?? "",
+                        category: "account"
+                      })
+
+                      toast.success("Produto adicionado")
+                    }}
+                    className="bg-[#A61C1C] uppercase rounded-sm flex items-center justify-center text-white mt-8 md:mt-0"
+                  >
                     Adicionar
                   </Button>
                 </section>
@@ -136,7 +156,20 @@ export default function Product() {
                     </div>
                   </div>
 
-                  <Button className="bg-[#A61C1C] uppercase rounded-sm flex items-center justify-center text-white mt-8 md:mt-0">
+                  <Button
+                    className="bg-[#A61C1C] uppercase rounded-sm flex items-center justify-center text-white mt-8 md:mt-0"
+                    onClick={() => {
+                      addProduct({
+                        id: gamePassInfo?.id ?? "",
+                        name: gamePassInfo?.name ?? "",
+                        price: gamePassInfo?.price ?? 0,
+                        photo: gamePassInfo?.image.url ?? "",
+                        category: "gamepass"
+                      })
+
+                      toast.success("Produto adicionado")
+                    }}
+                  >
                     Adicionar
                   </Button>
                 </section>
