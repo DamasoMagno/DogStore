@@ -31,6 +31,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
           <Toaster
             position="top-right"
+            duration={1000}
             closeButton
           />
         </body>

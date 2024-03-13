@@ -38,7 +38,7 @@ export function Product({ product, category }: ProductProps) {
       toast.success("Produto adicionado")
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error.message)
+        toast.error(error.message)
       }
     }
   }

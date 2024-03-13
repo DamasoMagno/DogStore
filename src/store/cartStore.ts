@@ -31,7 +31,7 @@ interface Product {
 export const useCartsStorage = create<CartsStorage>((set, get) => ({
   products: [],
 
-  addCart: async (product: ProductInput) => {
+  addCart: (product: ProductInput) => {
     const oldProducts = get().products
 
     const diferentProductCategory = oldProducts.some((currentProduct) => currentProduct.category !== product.category)
@@ -82,7 +82,7 @@ export const useCartsStorage = create<CartsStorage>((set, get) => ({
 
     const productAlreadyRemoved = oldProducts.find(product => product.id === productId)
 
-    if (productAlreadyRemoved && productAlreadyRemoved?.quantity < 1) {
+    if (productAlreadyRemoved && productAlreadyRemoved?.quantity <= 1) {
       return
     }
 
