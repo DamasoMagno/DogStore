@@ -2,15 +2,14 @@ import { gql } from 'graphql-request'
 import { client } from '@/lib/graphql'
 
 const accountsQuery = gql`
-  query Accounts($slug: String!, $category: String, $order: AccountOrderByInput) {
-    accounts(
-      where: {jogo: {slug: $slug}, category: {slug_starts_with: $category}}
-      orderBy: $order
-    ) {
+  {
+    accounts(where: {jogo: {slug: "blox-fruit"}}) {
       id
       name
       price
-      slug
+      category {
+        name
+      }
       image {
         url
       }
@@ -24,6 +23,9 @@ export interface IProducts {
     name: string
     slug: string
     price: number
+    category: {
+      name: string
+    }
     image: {
       url: string
     }
@@ -37,9 +39,11 @@ interface IProductProps {
 }
 
 export const accounts = async ({ slug, order, category = "" }: IProductProps) => {
-  return await client.request<IProducts>(accountsQuery, {
+  const data = await client.request<IProducts>(accountsQuery, {
     slug,
     order,
     category: category ? category : ""
   })
+
+  return data
 }
