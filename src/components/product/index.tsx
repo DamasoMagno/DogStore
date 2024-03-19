@@ -29,11 +29,14 @@ export function Product({ product, category }: ProductProps) {
   }))
 
   function handleAddProductToCart() {
-    try {
-      if (products.length < 1) {
-        toggleCartModal()
-      }
+    const productExistsOnCart = products.find(c => c.id === product.id)
 
+    if (productExistsOnCart) {
+      toast.success("Produto já adicionado")
+      return
+    }
+
+    try {
       addCart({
         id: product.id,
         name: product.name,
@@ -41,6 +44,8 @@ export function Product({ product, category }: ProductProps) {
         price: product.price,
         category: category
       })
+
+      toggleCartModal()
 
       toast.success("Produto adicionado")
     } catch (error) {
