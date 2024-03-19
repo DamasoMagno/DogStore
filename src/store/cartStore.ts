@@ -4,10 +4,17 @@ import { create } from 'zustand'
 
 interface CartsStorage {
   products: Product[]
+  cartModal: boolean
+  confirmReset: boolean
+  isConfirmed: boolean
+  toggleCartModal: () => void;
   addCart: (product: ProductInput) => void
   removeCart: (productId: string) => void
   incrementCart: (productId: string) => void
   decrementCart: (productId: string) => void
+  clearCart: () => void
+  confirm: () => void
+  setIsConfirmed: () => void
 }
 
 interface ProductInput {
@@ -30,6 +37,9 @@ interface Product {
 
 export const useCartsStorage = create<CartsStorage>((set, get) => ({
   products: [],
+  cartModal: false,
+  confirmReset: false,
+  isConfirmed: false,
 
   addCart: (product: ProductInput) => {
     const oldProducts = get().products
@@ -43,7 +53,6 @@ export const useCartsStorage = create<CartsStorage>((set, get) => ({
 
     if (diferentProductCategory) {
       throw new Error("Você não pode adicionar um gamepass e conta juntos")
-
     }
 
     const newProduct: Product = {
@@ -108,4 +117,20 @@ export const useCartsStorage = create<CartsStorage>((set, get) => ({
       products: productsWithoutProductSelectById,
     })
   },
+
+  clearCart: () => {
+    set({ products: [] })
+  },
+
+  toggleCartModal: () => {
+    set({ cartModal: !get().cartModal })
+  },
+
+  confirm: () => {
+    set({ confirmReset: !get().confirmReset })
+  },
+
+  setIsConfirmed: () => {
+    set({ isConfirmed: !get().isConfirmed })
+  }
 }))

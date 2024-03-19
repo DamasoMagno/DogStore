@@ -2,30 +2,35 @@
 import Image from "next/image"
 import { ChevronLeft, ChevronRight, ShoppingCart, Trash, X } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetClose } from "../ui/sheet"
-import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "../ui/button"
 import { useCartsStorage } from "@/store/cartStore"
 
 export function Cart() {
-  const { products, removeProduct, incrementProductCount, decrementProductCount } = useCartsStorage(state => ({
+  const {
+    products,
+    removeProduct,
+    incrementProductCount,
+    cartModal,
+    decrementProductCount,
+    toggleCartModal
+  } = useCartsStorage(state => ({
     products: state.products,
     removeProduct: state.removeCart,
     incrementProductCount: state.incrementCart,
     decrementProductCount: state.decrementCart,
+    cartModal: state.cartModal,
+    toggleCartModal: state.toggleCartModal,
   }))
 
   const router = useRouter()
-  const [productCount, setProductcount] = useState(1)
 
   const handleCheckoutCart = () => {
     router.push("/checkout")
   }
 
-  console.log(products)
-
   return (
-    <Sheet>
+    <Sheet open={cartModal} onOpenChange={toggleCartModal}>
       <SheetTrigger asChild>
         <button className="bg-transparent flex justify-center items-center text-white border-[#2A2A2A] border-2 rounded-lg w-9 h-9">
           <ShoppingCart className="text-white" size={14} />

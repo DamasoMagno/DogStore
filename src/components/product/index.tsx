@@ -4,7 +4,6 @@ import Link from "next/link"
 import { toast } from "sonner"
 import { Button } from "../ui/button"
 import { ShoppingCart } from "lucide-react"
-import { IProduct } from "@/interfaces"
 import { useCartsStorage } from "@/store/cartStore"
 
 interface ProductProps {
@@ -21,12 +20,20 @@ interface ProductProps {
 }
 
 export function Product({ product, category }: ProductProps) {
-  const { addCart } = useCartsStorage(state => ({
+  const { addCart, toggleCartModal, products, isConfirmed } = useCartsStorage(state => ({
     addCart: state.addCart,
+    products: state.products,
+    toggleCartModal: state.toggleCartModal,
+    isConfirmed: state.isConfirmed,
+    setIsConfirmed: state.setIsConfirmed,
   }))
 
   function handleAddProductToCart() {
     try {
+      if (products.length < 1) {
+        toggleCartModal()
+      }
+
       addCart({
         id: product.id,
         name: product.name,
